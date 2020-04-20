@@ -1,17 +1,6 @@
-TypeScript Fullstack
-=================
+Type Tetris
+===========
 
-A TypeScript template on the client and serverside.
+A TypeScript + Canvas reimplmentation of Tetris following the "Super Rotation System" rules
 
-
-Your Project
-------------
-
-On the front-end,
-- edit `src/public-src/client.js`, `src/public/style.css` and `src/views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `src/server.ts`
-- add frameworks and packages in `src/package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
+* https://tetris.wiki/Super_Rotation_System
