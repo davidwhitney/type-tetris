@@ -96,7 +96,7 @@ export class World {
     }
   }
 
-  public *rows(): IterableIterator<Row> {    
+  public *rows(onlyLocked: boolean = false): IterableIterator<Row> {    
     for (let yLoop = 0; yLoop < this.height; yLoop++) {
       const y: number = this.height - yLoop;
       
@@ -107,9 +107,11 @@ export class World {
         let occupied: boolean = anyMinos.length > 0;
         let origin = occupied ? anyMinos[0].shape : null;        
   
-        if (this.tetromino != null && this.tetromino.occupies({ x, y })) {
-          occupied = true;
-          origin = this.tetromino.shape;
+        if (!onlyLocked) {
+          if (this.tetromino != null && this.tetromino.occupies({ x, y })) {
+            occupied = true;
+            origin = this.tetromino.shape;
+          }
         }
         
         row.push({ x, y, occupied, origin });      
@@ -136,7 +138,7 @@ export class World {
   private lineClear() {
     let completedRows: Row[] = [];
 
-    for (let row of this.rows()) {
+    for (let row of this.rows(true)) {
       if(row.every(cell => cell.occupied)) {
         completedRows.push(row);
       }
