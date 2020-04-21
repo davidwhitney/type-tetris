@@ -12,12 +12,7 @@ export class Controls {
   public processInput(keyPressed: any) {
     const key = keyPressed.key.toLowerCase();
     const movement = toMove(key);
-    
-    if (movement.rotation != RotationOperation.None) {      
-      this.game.world.rotate(movement.rotation);
-    } else {    
-      this.game.world.move(movement);
-    }
+    this.game.world.move(movement);
   }
 
   

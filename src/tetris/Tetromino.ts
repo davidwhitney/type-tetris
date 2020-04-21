@@ -1,8 +1,7 @@
-import { Location, ValidTetronimo, Mino, Move, RotationOperation, RotationState } from './Types';
+import { Location, ValidTetronimo, ValidTetronimos, Mino, Move, RotationOperation, RotationState } from './Types';
 import { AllLayouts } from './TetrominoLayouts';
 
 type TetronimoLayout = { label: RotationState, layout: string[][] };
-const valid: ValidTetronimo[] = ["I", "J", "L",  "S",  "T",  "Z", "O" ];
 
 export class Tetromino {
   
@@ -99,7 +98,7 @@ export class Tetromino {
     public static Empty(): Tetromino { return this.create("Empty") }
 
     public static random(): Tetromino {
-      let shuffled = valid
+      let shuffled = ValidTetronimos
                     .map((a) => ({sort: Math.random(), value: a}))
                     .sort((a, b) => a.sort - b.sort)
                     .map((a) => a.value);
