@@ -135,39 +135,34 @@ export class World {
     } 
   }
 
-  private lineClear() {
-    let completedRows: Row[] = [];
-
-    for (let row of this.rows(true)) {
+  private lineClear() {    
+    const allRows = [...this.rows(true)];
+    allRows.reverse();
+    
+    const clearedRows: number[] = [];
+    for (var row of allRows) {
+      const rowY = row[0].y;
+      
       if(row.every(cell => cell.occupied)) {
-        completedRows.push(row);
-      }
+        this.occupiedLocations = this.occupiedLocations.filter(cell => cell.y != rowY);
+        clearedRows.push(rowY);
+      }      
     }
-
-    completedRows = completedRows.reverse(); // Bottom first thanks!
-
-    for (let row of completedRows) {
-      const y = row[0].y;
-      const rowAbove = y + 1;
-
-      this.occupiedLocations = this.occupiedLocations.filter(cell => cell.y != y);
+     
+    for(const rowNumber of clearedRows) {  // Shift all rows down      
       this.occupiedLocations = this.occupiedLocations.map(cell => {
-        if (cell.y == rowAbove) {
-          cell.y = y;
-        }
+        cell.y = cell.y > rowNumber ? cell.y - 1: cell.y;
         return cell;
       });
-    }
+    }   
     
-    switch(completedRows.length) {
+    switch(clearedRows.length) {
       case 1: this.score += 40;
       case 2: this.score += 100;
       case 3: this.score += 300;
       case 4: this.score += 1200;
       default: this.score += 0;
     }
-
-    console.log("Current score", this.score);
   }  
     
 }
